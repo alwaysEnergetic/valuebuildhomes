@@ -1,5 +1,3 @@
-#Custom Home Building Assistant
-
 ## Software Requirements
 
 - Node.js **8+**
