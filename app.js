@@ -37,7 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 //To allow cross-origin requests
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 
 //Route Prefixes
 app.use("/", indexRouter);
