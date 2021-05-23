@@ -82,17 +82,7 @@ exports.myRespInformation = [
 		try {
 			UserModel.findOne({_id:req.user._id},"respInfo").then((info)=>{
 				if(info!=null){
-					if(!info.length){
-						Responsibility.find({},"_id category title subtitle range").then((res_items)=>{
-							if(res_items.length > 0){
-								return apiResponse.successResponseWithData(res, "Operation success", {respInfo:res_items});
-							}else{
-								return apiResponse.successResponseWithData(res, "Operation success", []);
-							}
-						});
-					}else{
-						return apiResponse.successResponseWithData(res, "Operation success", info);
-					}
+					return apiResponse.successResponseWithData(res, "Operation success", info);
 				}else{
 					return apiResponse.successResponseWithData(res, "Operation success", null);
 				}
