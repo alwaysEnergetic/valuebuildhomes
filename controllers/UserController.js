@@ -1,4 +1,5 @@
 const UserModel = require("../models/UserModel");
+const Responsibility = require("../models/ResponsibilityModel");
 const HomeModel = require("../models/HomeModel");
 const OptionModel = require("../models/OptionModel");
 const { body,validationResult } = require("express-validator");
@@ -81,7 +82,17 @@ exports.myRespInformation = [
 		try {
 			UserModel.findOne({_id:req.user._id},"respInfo").then((info)=>{
 				if(info!=null){
-					return apiResponse.successResponseWithData(res, "Operation success", info);
+					if(!info.length){
+						Responsibility.find({},"_id category title subtitle range").then((res_items)=>{
+							if(res_items.length > 0){
+								return apiResponse.successResponseWithData(res, "Operation success", {respInfo:res_items});
+							}else{
+								return apiResponse.successResponseWithData(res, "Operation success", []);
+							}
+						});
+					}else{
+						return apiResponse.successResponseWithData(res, "Operation success", info);
+					}
 				}else{
 					return apiResponse.successResponseWithData(res, "Operation success", null);
 				}
